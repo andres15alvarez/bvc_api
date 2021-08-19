@@ -1,0 +1,1 @@
+web: gunicorn booleancapital.wsgi --log-file
