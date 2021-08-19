@@ -1,8 +1,6 @@
 from django.db import models
 
-from django.db import models
-
-class StockVES(models.Model):
+class StockUSD(models.Model):
 
 	code = models.CharField(max_length=5)
 	open = models.DecimalField(max_digits=12, decimal_places=2)
@@ -12,12 +10,13 @@ class StockVES(models.Model):
 	date = models.DateField()
 
 	class Meta:
-		db_table = 'stock_ves'
+		db_table = 'stock_usd'
 		ordering = ['-date', 'code']
-		verbose_name = 'stock ves daily'
-		verbose_plural_name = 'stocks ves daily'
-		constraint = [
-			models.UniqueConstraint(fields=['code', 'date'], )
+		verbose_name = 'stock usd daily'
+		verbose_name_plural = 'stocks usd daily'
+		constraints = [
+			models.UniqueConstraint(fields=['code', 'date'],
+				name='unique_code_date_usd')
 		]
 
 	def __str__(self):

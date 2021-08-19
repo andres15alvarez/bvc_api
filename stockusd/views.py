@@ -1,5 +1,5 @@
 from rest_framework import generics
-from rest_framework import Response
+from rest_framework.response import Response
 from stockusd.models import StockUSD
 from stockusd.serializers import StockUSDSerializer
 
