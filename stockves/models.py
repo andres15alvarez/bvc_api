@@ -5,6 +5,7 @@ from django.db import models
 class StockVES(models.Model):
 
 	code = models.CharField(max_length=5)
+	volume = models.PositiveIntegerField()
 	open = models.DecimalField(max_digits=12, decimal_places=2)
 	close = models.DecimalField(max_digits=12, decimal_places=2)
 	high = models.DecimalField(max_digits=12, decimal_places=2)
