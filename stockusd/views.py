@@ -1,8 +1,11 @@
 """Stock on USD Views."""
+from django.db.models import Subquery, OuterRef
+from django.utils import timezone
 from rest_framework import generics, status
 from rest_framework.response import Response
 from stockusd.models import StockUSD
 from stockusd.serializers import StockUSDSerializer
+from company.models import Company
 
 
 class StockUSDView(generics.ListAPIView):
@@ -17,14 +20,27 @@ class StockUSDView(generics.ListAPIView):
 	"""
 
 	def get_queryset(self):
-		company_code = self.request.query_params.get('company_code', '')
+		company_code = self.request.query_params.get('company_code')
 		date_from = self.request.query_params.get('date_from')
 		date_to = self.request.query_params.get('date_to')
 		if date_from and date_to:
-			return StockUSD.objects.filter(
-				date__range=(date_from, date_to), 
-				code=company_code
-			)
+			if company_code:
+				return StockUSD.objects.filter(
+					date__range=(date_from, date_to), 
+					code=company_code
+				).annotate(
+					name=Subquery(
+							Company.objects.filter(code=OuterRef('code')).values('name')[:1]
+						)
+				)
+			else:
+				return StockUSD.objects.filter(
+					date__range=(date_from, date_to)
+				).annotate(
+					name=Subquery(
+						Company.objects.filter(code=OuterRef('code')).values('name')[:1]
+						)
+				)
 		raise Exception('query params null')
 
 	def list(self, *args, **kwargs):
@@ -34,3 +50,23 @@ class StockUSDView(generics.ListAPIView):
 			return Response({'data': serializer.data}, status=status.HTTP_200_OK)
 		except Exception as e:
 			return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class MostTradedStockUSDView(generics.ListAPIView):
+
+	def get_queryset(self):
+		now = timezone.now().strftime('%Y-%m-%d')
+		return StockUSD.objects.all().annotate(
+				name=Subquery(
+						Company.objects.filter(code=OuterRef('code')).values('name')[:1]
+					)
+			).order_by('-date', '-volume')[:5]
+
+	def list(self, *args, **kwargs):
+		try:
+			queryset = self.get_queryset()
+			serializer = StockUSDSerializer(queryset, many=True)
+			return Response({'data': serializer.data}, status=status.HTTP_200_OK)
+		except Exception as e:
+			return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+

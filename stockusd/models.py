@@ -4,7 +4,7 @@ class StockUSD(models.Model):
 
 	code = models.CharField(max_length=5)
 	volume = models.PositiveIntegerField()
-	variation = models.DecimalField(max_digits=4, decimal_places=2)
+	variation = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
 	open = models.DecimalField(max_digits=12, decimal_places=2)
 	close = models.DecimalField(max_digits=12, decimal_places=2)
 	high = models.DecimalField(max_digits=12, decimal_places=2)
@@ -23,4 +23,4 @@ class StockUSD(models.Model):
 
 	def __str__(self):
 		return f'{self.code} O:{self.open} L:{self.low} H:{self.high}'\
-				f'C:{self.close} at {self.date}'
+				f' C:{self.close} at {self.date}'
