@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'user',
     'stockusd',
-    'stockves'
+    'stockves',
+    'company',
 ]
 
 MIDDLEWARE = [
@@ -145,5 +146,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # https://github.com/adamchainz/django-cors-headers
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",
+    "http://localhost:3000",
+    "https://boolean-capital.vercel.app"
 ]
