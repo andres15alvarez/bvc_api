@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'stockves',
     'company',
     'usd_exchange',
+    'ibc',
 ]
 
 MIDDLEWARE = [
@@ -121,7 +122,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Caracas'
 
 USE_I18N = True
 
