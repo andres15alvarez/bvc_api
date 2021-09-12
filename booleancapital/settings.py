@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'stockusd',
     'stockves',
     'company',
+    'usd_exchange',
 ]
 
 MIDDLEWARE = [
