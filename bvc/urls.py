@@ -18,8 +18,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('ves/', include('stockves.urls')),
-    path('usd/', include('stockusd.urls')),
-    path('usd_exchange/', include('usd_exchange.urls')),
+    path('stock/', include('stock.urls')),
+    path('usd_exchange/', include('exchange.urls')),
     path('ibc/', include('ibc.urls'))
 ]
