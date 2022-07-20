@@ -1,10 +1,5 @@
-stocks_usd_daily/
-stocks_ves_daily/
-data/
-token.txt
 static/
 
-migrations/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
