@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
+import dotenv
+
+
+dotenv.read_dotenv('.env')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,24 +26,31 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
+ENV = os.environ.get('ENVIRONMENT', 'develop')
+
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True if ENV == 'develop' else False
 
 ALLOWED_HOSTS = ['*']
 
 
 # Application definition
-
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+]
+
+THIRD_PARTY_APPS = [
     'whitenoise.runserver_nostatic',
     'corsheaders',
     'rest_framework',
+]
+
+PROJECT_APPS = [
     'user',
     'stockusd',
     'stockves',
@@ -47,6 +58,8 @@ INSTALLED_APPS = [
     'usd_exchange',
     'ibc',
 ]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -122,7 +135,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'America/Caracas'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -152,7 +165,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Cors
 # https://github.com/adamchainz/django-cors-headers
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "https://boolean-capital.vercel.app"
-]
+CORS_ALLOW_ALL_ORIGINS = True
