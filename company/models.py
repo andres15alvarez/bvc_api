@@ -3,7 +3,7 @@ from django.db import models
 
 class Company(models.Model):
 
-	name = models.CharField(max_length=100, null=False, blank=False)
+	name = models.CharField(max_length=100, null=True)
 	code = models.CharField(max_length=5, null=False, unique=True)
 
 	class Meta:
