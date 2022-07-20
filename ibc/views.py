@@ -1,8 +1,9 @@
 """IBC Views."""
+from datetime import datetime
 from rest_framework import generics, status
 from rest_framework.response import Response
 from ibc.models import IBC
-from ibc.serializers import IBCSerializer
+from ibc.serializers import IBCSerializer, IBCRangeSerializer
 
 
 class IBCView(generics.ListAPIView):
@@ -14,17 +15,10 @@ class IBCView(generics.ListAPIView):
 
 	"""
 
-	def get_queryset(self):
-		date_from = self.request.query_params.get('date_from')
-		date_to = self.request.query_params.get('date_to')
-		if date_from and date_to:
-			return IBC.objects.filter(date__range=(date_from, date_to))
-		raise Exception('query params null')
-
 	def list(self, *args, **kwargs):
-		try:
-			queryset = self.get_queryset()
-			serializer = IBCSerializer(queryset, many=True)
-			return Response({'data': serializer.data}, status=status.HTTP_200_OK)
-		except Exception as e:
-			return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+		serializer = IBCRangeSerializer(data=self.request.query_params)
+		serializer.is_valid(raise_exception=True)
+		date_from = datetime.strptime(serializer.validated_data["date_from"], "%Y-%m-%d")
+		date_to = datetime.strptime(serializer.validated_data["date_to"], "%Y-%m-%d")
+		serializer = IBCSerializer(IBC.objects.filter(date__range=(date_from, date_to)), many=True)
+		return Response({'data': serializer.data}, status=status.HTTP_200_OK)
