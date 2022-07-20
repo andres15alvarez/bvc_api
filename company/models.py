@@ -7,8 +7,9 @@ class Company(models.Model):
 	code = models.CharField(max_length=5, null=False, unique=True)
 
 	class Meta:
-
-		ordering = ['name']
+		db_table = "company"
+		verbose_name = "company"
+		verbose_name_plural = "companies"
 
 	def __str__(self):
-		return self.name
+		return f"{self.code}:{self.name}"
