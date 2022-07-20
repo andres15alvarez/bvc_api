@@ -2,7 +2,7 @@ from django.db import models
 
 class Stock(models.Model):
 
-	code = models.CharField(max_length=5)
+	code = models.ForeignKey('company.Company', on_delete=models.CASCADE, related_name="stocks")
 	volume = models.PositiveIntegerField()
 	variation = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
 	open = models.DecimalField(max_digits=12, decimal_places=2)
