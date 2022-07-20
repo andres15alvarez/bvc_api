@@ -7,7 +7,9 @@ class IBC(models.Model):
 	ibc = models.DecimalField(max_digits=12, decimal_places=2)
 
 	class Meta:
-		ordering = ['-date']
+		db_table = "ibc"
+		verbose_name = "index_bolsa_caracas"
+		verbose_name_plural = "indexes_bolsa_caracas"
 
 	def __str__(self):
 		return str(self.ibc)
