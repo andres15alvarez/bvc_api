@@ -51,12 +51,12 @@ THIRD_PARTY_APPS = [
 ]
 
 PROJECT_APPS = [
-    'user',
-    'currency',
-    'stock',
-    'company',
-    'exchange',
-    'ibc',
+    'apps.user',
+    'apps.currency',
+    'apps.stock',
+    'apps.company',
+    'apps.exchange',
+    'apps.ibc',
     'apps.auth',
 ]
 

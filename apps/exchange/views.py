@@ -1,8 +1,8 @@
 """USD Exchange rate Views."""
 from rest_framework import generics, status
 from rest_framework.response import Response
-from exchange.models import ExchangeRate
-from exchange.serializers import ExchangeRateSerializer
+from apps.exchange.models import ExchangeRate
+from apps.exchange.serializers import ExchangeRateSerializer
 
 
 class ExchangeRateView(generics.ListAPIView):

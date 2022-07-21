@@ -1,5 +1,5 @@
 from django.urls import path
-from stock.views import (
+from apps.stock.views import (
 	StockView,
 	MostTradedStockView
 )

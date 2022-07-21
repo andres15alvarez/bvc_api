@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ibc.models import IBC
+from apps.ibc.models import IBC
 
 
 class IBCSerializer(serializers.ModelSerializer):

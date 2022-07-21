@@ -1,5 +1,5 @@
 from django.urls import path
-from exchange.views import ExchangeRateView
+from apps.exchange.views import ExchangeRateView
 
 
 urlpatterns = [

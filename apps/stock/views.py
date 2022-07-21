@@ -3,9 +3,9 @@ from django.db.models import Subquery, OuterRef
 from django.utils import timezone
 from rest_framework import generics, status
 from rest_framework.response import Response
-from stock.models import Stock
-from stock.serializers import StockSerializer
-from company.models import Company
+from apps.stock.models import Stock
+from apps.stock.serializers import StockSerializer
+from apps.company.models import Company
 
 
 class StockView(generics.ListAPIView):

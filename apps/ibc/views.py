@@ -2,8 +2,8 @@
 from datetime import datetime
 from rest_framework import generics, status
 from rest_framework.response import Response
-from ibc.models import IBC
-from ibc.serializers import IBCSerializer, IBCRangeSerializer
+from apps.ibc.models import IBC
+from apps.ibc.serializers import IBCSerializer, IBCRangeSerializer
 
 
 class IBCView(generics.ListAPIView):

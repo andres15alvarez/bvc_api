@@ -2,7 +2,7 @@
 from django.urls import path, include
 
 urlpatterns = [
-    path('stock/', include('stock.urls')),
-    path('exchange/', include('exchange.urls')),
-    path('ibc/', include('ibc.urls'))
+    path('stock/', include('apps.stock.urls')),
+    path('exchange/', include('apps.exchange.urls')),
+    path('ibc/', include('apps.ibc.urls'))
 ]
