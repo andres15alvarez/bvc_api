@@ -18,7 +18,7 @@ class IBCView(generics.ListAPIView):
 	def list(self, *args, **kwargs):
 		serializer = IBCRangeSerializer(data=self.request.query_params)
 		serializer.is_valid(raise_exception=True)
-		date_from = datetime.strptime(serializer.validated_data["date_from"], "%Y-%m-%d")
-		date_to = datetime.strptime(serializer.validated_data["date_to"], "%Y-%m-%d")
+		date_from = serializer.validated_data["date_from"]
+		date_to = serializer.validated_data["date_to"]
 		serializer = IBCSerializer(IBC.objects.filter(date__range=(date_from, date_to)), many=True)
-		return Response({'data': serializer.data}, status=status.HTTP_200_OK)
+		return Response(serializer.data, status=status.HTTP_200_OK)
