@@ -2,7 +2,7 @@ import csv
 from datetime import date
 from django.apps import apps
 from django.core.management.base import BaseCommand, no_translations, CommandError
-from stock.models import Stock
+from apps.stock.models import Stock
 
 
 class Command(BaseCommand):
@@ -19,7 +19,7 @@ class Command(BaseCommand):
             raise CommandError('CSV File is needed!')
         if 'code' not in options:
             raise CommandError('Code of the stock is needed!')
-        with open(options['csv'], newline='') as f:
+        with open(options['csv'][0], newline='') as f:
             reader = csv.DictReader(f)
             list_stock = []
             company = apps.get_model('company', "Company")
@@ -40,5 +40,5 @@ class Command(BaseCommand):
                     )
                 )
         objects_created = Stock.objects.bulk_create(list_stock)
-        self.stdout(self.style.SUCCESS(f"{len(objects_created)} rows inserted"))
+        self.stdout.write(self.style.SUCCESS(f"{len(objects_created)} rows inserted"))
 

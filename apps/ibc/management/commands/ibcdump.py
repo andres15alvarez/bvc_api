@@ -1,7 +1,7 @@
 import csv
 from datetime import date
 from django.core.management.base import BaseCommand, no_translations, CommandError
-from ibc.models import IBC
+from apps.ibc.models import IBC
 
 
 class Command(BaseCommand):
@@ -15,7 +15,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         if 'csv' not in options:
             raise CommandError('CSV File is needed!')
-        with open(options['csv'], newline='') as f:
+        with open(options['csv'][0], newline='') as f:
             reader = csv.DictReader(f)
             list_ibc = []
             for row in reader:
@@ -27,5 +27,5 @@ class Command(BaseCommand):
                     )
                 )
         objects_created = IBC.objects.bulk_create(list_ibc)
-        self.stdout(self.style.SUCCESS(f"{len(objects_created)} rows inserted"))
+        self.stdout.write(self.style.SUCCESS(f"{len(objects_created)} rows inserted"))
 
